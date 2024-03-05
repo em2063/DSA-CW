@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.*;
 
 class graph {
@@ -28,7 +27,7 @@ class graph {
 
         while(queue.size() != 0){
             s = queue.poll();
-            System.out.println(s + "");
+            //System.out.println(s + "");
 
             Iterator<Integer> i = adj[s].listIterator();
 
@@ -36,6 +35,7 @@ class graph {
                 int n = i.next();
                 if(!visited[n]){
                     visited[n] = true;
+                    System.out.println("(" + s +  "," + n + ")");
                     queue.add(n);
                 }
             }
