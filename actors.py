@@ -1,4 +1,3 @@
-   
 from collections import deque
 
 def open_file(file_path):
@@ -23,7 +22,6 @@ class Graph:
         if u not in self.graph:
             self.graph[u] = []
         self.graph[u].append(v)
-        
 
     def bfs(self, s):
         visited = {actor: False for actor in self.graph}
@@ -43,9 +41,7 @@ class Graph:
                     visited[i] = True
                     distances[i] = distances[s] + 1
                     
-
         return distances
-
 
 def main():
     file_path = r'C:\Users\Ethan\Desktop\uni\DSA CW\movies-test.txt'
@@ -53,40 +49,16 @@ def main():
     actors_dict = open_file(file_path)
 
     g = Graph()
-    actors_dist = {}
 
     for movie, actors in actors_dict.items():
-        for actor1 in actors:
-            for actor2 in actors:
-                if (actor1, actor2) not in edges and (actor1 != actor2):
+        for i, actor1 in enumerate(actors):
+            for actor2 in actors[i+1:]:
+                if ((actor1, actor2) not in edges or (actor2, actor1)) not in edges and (actor1 != actor2):
                     g.addEdge(actor1, actor2)
                     edges.add((actor1, actor2))
-
-
-    for actor in g.graph.keys():
-        distances = g.bfs(actor)
-        max_dist = max(distances.values())
-        actors_dist[actor] = max_dist
-
-    
-    min_value = min(actors_dist.values())
-    max_value = max(actors_dist.values())
-    center = [key for key, value in actors_dist.items() if value == min_value]
-    outliers = [key for key, value in actors_dist.items() if value == max_value]
-        
-
-    print("center: ", center)
-    print("Outliers: ", outliers)
-
-
-        
+                    
+                    
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
 
